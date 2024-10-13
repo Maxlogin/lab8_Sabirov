@@ -15,7 +15,7 @@ public class work2_Zad3 {
         float totalKcal = Integer.parseInt(pixelKcalDay) + pixelChoice;
         checkKcal(totalKcal);
     }
-
+    //Татарский код
     private static Float getMinKcalsSum(float firstDishKcal, float secondDishKcal, float firstDesert, float secondDesert) {
 
         float minDishKcal = Float.min(firstDishKcal, secondDishKcal); // вычислите минимальную калорийность основного блюда

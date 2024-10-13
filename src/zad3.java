@@ -1,86 +1,115 @@
 import java.util.ArrayList;
-import java.util.Scanner;
-
+import java.util.HashMap;
 public class zad3 {
     public static void main(String[] args) {
-        ArrayList<String> animals = new ArrayList<>();
-        animals.add("Шиншилла");
-        animals.add("Крокодил");
-        animals.add("Лев");
-        animals.add("Медведь");
-        animals.add("Слон");
+        OrdersManager ordersManager = new OrdersManager();
 
-        Scanner scanner = new Scanner(System.in);
-        int choice;
+        ordersManager.printAllOrders();
+        System.out.println("Всего заказов на сумму: " + ordersManager.getOrdersSum());
 
-        do {
-            System.out.println("\nМеню:");
-            System.out.println("1. Показать список всех животных");
-            System.out.println("2. Добавить животное");
-            System.out.println("3. Удалить животное");
-            System.out.println("4. Очистить список");
-            System.out.println("5. Проверить наличие животного");
-            System.out.println("0. Выход");
-            System.out.print("Выберите действие: ");
-            choice = scanner.nextInt();
-            scanner.nextLine(); // Считываем оставшийся символ новой строки
+        String maxOrderCustomerName = ordersManager.getMaxOrderCustomerName();
+        System.out.println("Самая большая сумма заказов у " + maxOrderCustomerName);
+        ordersManager.printCustomerOrders(maxOrderCustomerName);
 
-            switch (choice) {
-                case 1:
-                    showAnimals(animals);
-                    break;
-                case 2:
-                    System.out.print("Введите имя животного для добавления: ");
-                    String newAnimal = scanner.nextLine();
-                    animals.add(newAnimal);
-                    System.out.println(newAnimal + " добавлено в список.");
-                    break;
-                case 3:
-                    if (!animals.isEmpty()) {
-                        System.out.print("Введите имя животного для удаления: ");
-                        String animalToRemove = scanner.nextLine();
-                        if (animals.remove(animalToRemove)) {
-                            System.out.println(animalToRemove + " удалено из списка.");
-                        } else {
-                            System.out.println("Животное не найдено в списке.");
-                        }
-                    } else {
-                        System.out.println("Список животных пуст.");
-                    }
-                    break;
-                case 4:
-                    if (!animals.isEmpty()) {
-                        animals.clear();
-                        System.out.println("Список животных очищен.");
-                    } else {
-                        System.out.println("Список уже пуст.");
-                    }
-                    break;
-                case 5:
-                    System.out.print("Введите имя животного для проверки: ");
-                    String animalToCheck = scanner.nextLine();
-                    if (animals.contains(animalToCheck)) {
-                        System.out.println(animalToCheck + " есть в зоопарке.");
-                    } else {
-                        System.out.println(animalToCheck + " нет в зоопарке.");
-                    }
-                    break;
-                case 0:
-                    System.out.println("Выход из программы.");
-                    break;
-                default:
-                    System.out.println("Неверный выбор. Попробуйте снова.");
-            }
-        } while (choice != 0);
+        ordersManager.removeUnprofitableOrders();
+    }
+}
 
-        scanner.close();
+
+class OrdersManager {
+    HashMap<String, ArrayList<Double>> customersOrders;
+
+    public OrdersManager() {
+        customersOrders = new HashMap<>();
+        ArrayList<Double> orders = new ArrayList<>();
+        orders.add(154.43);
+        orders.add(5453.98);
+        orders.add(8776.65);
+        customersOrders.put("Иван И.", orders);
+
+        orders = new ArrayList<>();
+        orders.add(25343.54);
+        orders.add(420.50);
+        customersOrders.put("Ольга С.", orders);
+
+        orders = new ArrayList<>();
+        orders.add(325.90);
+        customersOrders.put("Александр Т.", orders);
+
+        orders = new ArrayList<>();
+        orders.add(253.54);
+        orders.add(420.50);
+        customersOrders.put("Александр Р.", orders);
+
+        orders = new ArrayList<>();
+        orders.add(780.54);
+        orders.add(420.50);
+        orders.add(36343.54);
+        orders.add(2000.50);
+        customersOrders.put("Екатерина О.", orders);
     }
 
-    private static void showAnimals(ArrayList<String> animals) {
-        System.out.println("Сегодня в зоопарке можно увидеть кормления " + animals.size() + " животных.");
-        System.out.println("Это будут:");
-        for (String animal : animals) {
-            System.out.println(animal);
+    void printAllOrders() {
+        for (String name : customersOrders.keySet()) { // цикл должен пройтись по ключам
+            System.out.println("Заказы " + name + ":");
+            ArrayList<Double> value = customersOrders.get(name);
+            System.out.println(value);
+        }
+    }
+
+    double getOrdersSum() {
+        double sum = 0;
+        for (ArrayList<Double> orders : customersOrders.values()) { // здесь должен быть обход по значениям
+            for (double orderPrice : orders) {
+                sum += orderPrice;
+            }
+        }
+        return sum;
+    }
+
+    void printCustomerOrders(String customerName) {
+        if (customersOrders.containsKey(customerName)) { // проверьте, есть ли указанный ключ в таблице
+            System.out.println("Заказы " + customerName + ":");
+            System.out.println(customersOrders.get(customerName));
+        }
+    }
+
+    String getMaxOrderCustomerName() {
+        double maxOrder = 0;
+        String customerName = "";
+
+        // допишите логику работы метода
+        for (String name : customersOrders.keySet()) {
+            double sum = 0;
+            for (double order : customersOrders.get(name)) {
+                sum += order;
+            }
+            if (sum > maxOrder) {
+                maxOrder = sum;
+                customerName = name;
+            }
+        }
+        return customerName;
+    }
+
+    void removeUnprofitableOrders() {
+        ArrayList<String> names = new ArrayList<>(); // создайте список клиентов с заказами меньше 5000
+
+        // наполните список names
+        for (String name : customersOrders.keySet()) {
+            double ordersSum = 0;
+            for (double order : customersOrders.get(name)) {
+                ordersSum += order;
+            }
+
+            if (ordersSum < 5000) {
+                names.add(name);
+            }
+        }
+
+        for (String name : names) { // удалите из хеш-таблицы тех, чьи расходы строго меньше 5000
+            customersOrders.remove(name);
+            System.out.println("Клиента " + name + " больше нет в таблице.");
         }
     }
 }

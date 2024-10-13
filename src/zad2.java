@@ -1,26 +1,36 @@
-package Lesson3_Sabirov;
+import java.util.HashMap;
 import java.util.ArrayList;
 public class zad2 {
         public static void main(String[] args) {
-            ArrayList<String> animals = new ArrayList<>();
-            animals.add("Шиншилла");
-            animals.add("Крокодил");
-            animals.add("Лев");
-            animals.add("Медведь");
-            animals.add("Слон");
+            HashMap<String, ArrayList<Integer>> stateHolidays = new HashMap<>();
 
-            System.out.println("Сегодня в зоопарке можно увидеть кормления " + animals.size() + " животных.");
-            System.out.println("Это будут:");
+            ArrayList<Integer> january = new ArrayList<>();
+            january.add(1);
+            january.add(7);
+            stateHolidays.put("Январь", january);
 
-            for (String animal : animals) {
-                System.out.println(animal);
-            }
+            ArrayList<Integer> february = new ArrayList<>();
+            february.add(23);
+            stateHolidays.put("Февраль", february);
 
-            System.out.println("Расписание кормлений:");
-            System.out.println("В 9:00 - " + animals.get(1));
-            System.out.println("В 10:00 - " + animals.get(4));
-            System.out.println("В 11:00 - " + animals.get(0));
-            System.out.println("В 12:00 - " + animals.get(2));
-            System.out.println("В 13:00 - " + animals.get(3));
+            ArrayList<Integer> march = new ArrayList<>();
+            march.add(8);
+            stateHolidays.put("Март", march);
+
+            ArrayList<Integer> may = new ArrayList<>();
+            may.add(1);
+            may.add(9);
+            stateHolidays.put("Май", may);
+
+            ArrayList<Integer> june = new ArrayList<>();
+            june.add(12);
+            stateHolidays.put("Июнь", june);
+
+            ArrayList<Integer> november = new ArrayList<>();
+            november.add(4);
+            stateHolidays.put("Ноябрь", november);
+
+
+            System.out.println(stateHolidays);
         }
     }

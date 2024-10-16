@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 class Ball { }      // Класс "мяч"
 class Accordion { } // Класс "аккордеон"
 class Hat { }       // Класс "шляпа"

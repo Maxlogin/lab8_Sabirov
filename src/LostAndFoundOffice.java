@@ -1,26 +1,26 @@
 import java.util.ArrayList;
 
-class LostAndFoundOffice {
-    // Список для учёта потерянных вещей
+public class LostAndFoundOffice {
+    // создайте список things
     private ArrayList<Object> things = new ArrayList<>();
 
-    // Метод для добавления вещи в список
+    // реализуйте метод put()
     public void put(Object element) {
         if (element != null) {
             things.add(element);
         }
     }
 
-    // Метод для проверки наличия вещи в списке
+    // реализуйте метод check()
     public boolean check(Object target) {
         if (target == null) {
-            return false; // Если передана пустая ссылка, возвращаем false
+            return false;
         }
-        for (Object object : things) {
+        for (Object object : things) { // логика проверки вещи в списке
             if (object.equals(target)) {
-                return true; // Если вещь найдена, возвращаем true
+                return true;
             }
         }
-        return false; // Если вещь не найдена, возвращаем false
+        return false;
     }
 }

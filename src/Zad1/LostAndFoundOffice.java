@@ -1,3 +1,5 @@
+package Zad1;
+
 import java.util.ArrayList;
 
 public class LostAndFoundOffice {
